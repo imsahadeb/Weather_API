@@ -7,16 +7,18 @@ const request_get = require('request');
 const wwoApiKey="d39a3c387837421685761154180605";
 const host = "api.worldweatheronline.com";
 app.use(
-    bodyParser.urlencoded({
-      extended: true
-    })
-  );
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
 
 app.use(bodyParser.json());
 
 app.post('/api',function(request,response){
     var myresult="";
-    let city = request.body.queryResult.parameters['geo-city']; // city is a required param
+   // let post_body="";
+   // let city = request.body.queryResult.parameters['geo-city']; // city is a required param
+   let city = request.body.queryResult.parameters['geo-city'];
 
     console.log("Your City Is: "+city);
     // Get the date for the weather forecast (if present)
@@ -36,6 +38,7 @@ app.post('/api',function(request,response){
       let info = JSON.parse(body);
       let forecast = info['data']['weather'][0];
       let location = info['data']['request'][0];
+
       let conditions = info['data']['current_condition'][0];
       let currentConditions = conditions['weatherDesc'][0]['value'];
       let windSpeed = conditions['windspeedMiles'];
